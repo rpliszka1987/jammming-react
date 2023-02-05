@@ -7,15 +7,17 @@ import Playlist from "../Playlist/Playlist";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    // Setting the initial state
-    this.state.searchResults = [
-      {
-        name: "name",
-        artist: "artist",
-        album: "album",
-        id: "id",
-      },
-    ];
+    // Setting the state to searchResult array of objects.
+    this.state = {
+      searchResults: [
+        {
+          name: "name",
+          artist: "artist",
+          album: "album",
+          id: "id",
+        },
+      ],
+    };
   }
   render() {
     return (
