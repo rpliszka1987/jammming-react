@@ -5,6 +5,18 @@ import SearchResults from "../SearchResults/SearchResults";
 import Playlist from "../Playlist/Playlist";
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    // Setting the initial state
+    this.state.searchResults = [
+      {
+        name: "name",
+        artist: "artist",
+        album: "album",
+        id: "id",
+      },
+    ];
+  }
   render() {
     return (
       <div>
@@ -14,7 +26,8 @@ class App extends React.Component {
         <div className="App">
           <SearchBar />
           <div className="App-playlist">
-            <SearchResults />
+            {/* Passing the state to the SearchResults component */}
+            <SearchResults searchResults={this.searchResults} />
             <Playlist />
           </div>
         </div>
