@@ -52,7 +52,24 @@ class App extends React.Component {
         },
       ],
     };
+    // binds the method
+    this.addTrack = this.addTrack.bind(this);
   }
+
+  addTrack(track) {
+    // Gets the playlistTracks which are in the current state.
+    let tracks = this.state.playlistTracks;
+    // Checks if the track.id is in the current playlistTrack state.
+    if (tracks.find((savedTrack) => savedTrack.id === track.id)) {
+      return;
+    }
+
+    // Pushes the track to the array
+    tracks.push(track);
+    // Updates the state
+    this.setState({ playlistTracks: tracks });
+  }
+
   render() {
     return (
       <div>
@@ -62,7 +79,10 @@ class App extends React.Component {
         <div className="App">
           <SearchBar />
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults} />
+            <SearchResults
+              searchResults={this.state.searchResults}
+              onAdd={this.addTrack}
+            />
             <Playlist
               playlistName={this.state.playlistName}
               playlistTracks={this.state.playlistTracks}
