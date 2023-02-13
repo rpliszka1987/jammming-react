@@ -89,9 +89,10 @@ class App extends React.Component {
     this.setState({ playlistTracks: tracks });
   }
 
+  // saves playlist
   savePlaylist() {
+    // Saved spotify to an array using URI which is used by spotify to find songs.
     const trackUris = [this.state.playlistTracks.map((track) => track.uri)];
-    
   }
 
   render() {
