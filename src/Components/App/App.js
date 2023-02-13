@@ -55,6 +55,12 @@ class App extends React.Component {
     // binds the method
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
+    this.updatePlaylistName = this.updatePlaylistName.bind(this);
+  }
+
+  // Updates playlist name
+  updatePlaylistName(name) {
+    this.setState({ playlistName: name });
   }
 
   addTrack(track) {
@@ -73,9 +79,12 @@ class App extends React.Component {
 
   // Remove track from playlist array
   removeTrack(track) {
+    // Gets the playlist which are in the cuttent state.
     let tracks = this.state.playlistTracks;
+    // This will filter all tracks and keep all tracks without the matching id
     tracks = tracks.filter((currentTrack) => currentTrack.id !== track.id);
 
+    // Sets the state to new tracks
     this.setState({ playlistTracks: tracks });
   }
 
@@ -96,6 +105,7 @@ class App extends React.Component {
               playlistName={this.state.playlistName}
               playlistTracks={this.state.playlistTracks}
               onRemove={this.removeTrack}
+              onNameChange={this.updatePlaylistName}
             />
           </div>
         </div>
