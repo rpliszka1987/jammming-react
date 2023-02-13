@@ -3,8 +3,13 @@ import "./Playlist.css";
 import TrackList from "../TrackList/TrackList";
 
 class Playlist extends React.Component {
-  handleNameChange(e) {
-    this.props.onNameChange(e )
+  constructor(props) {
+    super(props);
+    this.handleNameChange = this.handleNameChange.bind(this);
+  }
+
+  handleNameChange(event) {
+    this.props.onNameChange(event.target.value);
   }
   render() {
     return (
