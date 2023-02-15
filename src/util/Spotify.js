@@ -1,24 +1,23 @@
 const redirectUri = "http://localhost:3000/";
-let accessTocken;
+let accessToken;
 
 const Spotify = {
-  getAccessTocken() {
+  getAccessToken() {
     if (accessToken) {
-      return accessTocken;
+      return accessToken;
     }
 
     // check for an access tocken match
     // This gets the current url of our page
-    const accessTockenMatch =
-      window.location.href.match(/access_token=([^&]*)/);
+    const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
     const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/);
 
     // Checks if valuesd exist in url
-    if (accessTockenMatch && expiresInMatch) {
-      accessTocken = accessTockenMatch[1];
+    if (accessTokenMatch && expiresInMatch) {
+      accessToken = accessTokenMatch[1];
       const expiresIn = Number(expiresInMatch[1]);
       // This clears the parameters, allowing us to grab new access tocken when it expires
-      window.setTimeout(() => (accessTocken = ""), expiresIn * 1000);
+      window.setTimeout(() => (accessToken = ""), expiresIn * 1000);
       window.history.pushState("Access Token", null, "/");
       return accessToken;
     } else {
@@ -32,7 +31,7 @@ const Spotify = {
     const accessToken = Spotify.getAccessTocken();
     return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
       headers: {
-        Authorization: `Bearer ${accessTocken}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     })
       .then((reponse) => {
