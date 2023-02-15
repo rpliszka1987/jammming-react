@@ -1,4 +1,3 @@
-
 const redirectUri = "http://localhost:3000/";
 let accessTocken;
 
