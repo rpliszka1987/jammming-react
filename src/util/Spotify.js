@@ -50,6 +50,14 @@ const Spotify = {
         }));
       });
   },
+
+  // Sve playlist to Spotify
+  savePlaylist(name, trackUris) {
+    // Checks if there a values for name and trackUris array
+    if (!name || !trackUris.length) {
+      return;
+    }
+  },
 };
 
 export default Spotify;
