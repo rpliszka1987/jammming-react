@@ -57,6 +57,39 @@ const Spotify = {
     if (!name || !trackUris.length) {
       return;
     }
+
+    const accessTocken = Spotify.getAccessToken();
+    const headers = {
+      Authorization: `Bearer ${accessTocken}`,
+    };
+    let userId;
+
+    // fetch request from spotify API
+    return fetch("https://api.spotify.com/v1/me", { headers: headers })
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        userId = jsonResponse.id;
+        // This posts our playlist to Spotify API
+        return fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+          headers: headers,
+          method: "POST",
+          body: JSON.stringify({ name: name }),
+        })
+          .then((response) => response.json())
+          .then((jsonResponse) => {
+            // Save playlist id to playlistId variable
+            const playlistId = jsonResponse.id;
+            // Do a post request to Spotify API to add songs to the playlist
+            return fetch(
+              `https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`,
+              {
+                headers: headers,
+                method: "POST",
+                body: JSON.stringify({ uris: trackUris }),
+              }
+            );
+          });
+      });
   },
 };
 
